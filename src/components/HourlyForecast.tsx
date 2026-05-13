@@ -1,10 +1,11 @@
 import { useWeatherData } from "../hooks/useWeatherData";
+import type { WeatherComponentProps } from "../types";
 import { formatTime } from "../utils/formatTime";
 import Card from "./Card";
 import WeatherIcon from "./WeatherIcon";
 
-export default function HourlyForecast() {
-	const { data } = useWeatherData();
+export default function HourlyForecast({ coords }: WeatherComponentProps) {
+	const { data } = useWeatherData(coords);
 
 	return (
 		<Card title="Hourly Forecast (48 Hours)">

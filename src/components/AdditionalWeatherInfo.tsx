@@ -6,18 +6,25 @@ import {
 	Wind,
 	WindArrowDown,
 } from "lucide-react";
+import { useWeatherData } from "../hooks/useWeatherData";
+import type { WeatherComponentProps, WeatherDataCurrentKey } from "../types";
 import Card from "./Card";
 import { WeatherInfoRow } from "./WeatherInfoRow";
 
-export default function AdditionalWeatherInfo() {
+export default function AdditionalWeatherInfo({
+	coords,
+}: WeatherComponentProps) {
+	const { data } = useWeatherData(coords);
+
 	return (
 		<Card title="Additional Weather Info">
 			<div className="flex flex-col gap-4">
 				{additionalWeatherInfoMap.map((info) => (
 					<WeatherInfoRow
+						data={data}
 						key={info.key}
 						icon={info.icon}
-						infoKey={info.key}
+						infoKey={info.key as WeatherDataCurrentKey}
 						title={info.title}
 					/>
 				))}

@@ -1,16 +1,11 @@
+import type { Coords } from "./hooks/useWeatherData";
 import { WeatherResponseSchema } from "./schemas/weather-data-schema";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
-export async function getWeatherData({
-	lat,
-	lon,
-}: {
-	lat: number;
-	lon: number;
-}) {
+export async function getWeatherData(coords: Coords) {
 	const res = await fetch(
 		// ""
-		`https://api.openweathermap.org/data/3.0/onecall?lat=${33.44}&lon=${-94.04}&units=metric&exclude=minutely,alerts&appid=${API_KEY}`,
+		`https://api.openweathermap.org/data/3.0/onecall?lat=${coords.lat}&lon=${coords.lng}&units=metric&exclude=minutely,alerts&appid=${API_KEY}`,
 	);
 	const data = await res.json();
 	return WeatherResponseSchema.parse(data);

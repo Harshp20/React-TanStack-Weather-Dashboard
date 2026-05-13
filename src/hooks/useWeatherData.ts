@@ -1,13 +1,10 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { data, getWeatherData } from "../api";
+import { getWeatherData } from "../api";
+import type { Coords } from "../types";
 
-export function useWeatherData() {
-	// return useSuspenseQuery({
-	// 	queryKey: ["weather-data"],
-	// 	queryFn: () => getWeatherData({ lat: 33.44, lon: 94.04 }),
-
-	// 	// TODO: remove this
-	// 	staleTime: Infinity,
-	// });
-	return { data };
+export function useWeatherData(coords: Coords) {
+	return useSuspenseQuery({
+		queryKey: ["weather-data", coords],
+		queryFn: () => getWeatherData(coords),
+	});
 }

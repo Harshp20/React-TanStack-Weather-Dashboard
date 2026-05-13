@@ -1,10 +1,11 @@
 import { useWeatherData } from "../hooks/useWeatherData";
 import { formatDate } from "../utils/formatDate";
 import Card from "./Card";
+import type { WeatherComponentProps } from "./CurrentWeather";
 import WeatherIcon from "./WeatherIcon";
 
-export default function DailyForecast() {
-	const { data } = useWeatherData();
+export default function DailyForecast({ coords }: WeatherComponentProps) {
+	const { data } = useWeatherData(coords);
 
 	return (
 		<Card title="Daily Forecast">

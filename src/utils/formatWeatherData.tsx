@@ -1,8 +1,12 @@
 import { ArrowUp } from "lucide-react";
-import { data } from "../api";
+import type { WeatherData } from "../schemas/weather-data-schema";
+import type { WeatherDataCurrentKey } from "../types";
 import { formatTime } from "./formatTime";
 
-export function formatWeatherData(key: string) {
+export function formatWeatherData(
+	data: WeatherData,
+	key: WeatherDataCurrentKey,
+) {
 	if (key === "sunrise" || key === "sunset") {
 		return formatTime(data.current[key]);
 	}

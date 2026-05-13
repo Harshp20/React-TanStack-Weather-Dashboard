@@ -1,10 +1,11 @@
 import { useWeatherData } from "../hooks/useWeatherData";
+import type { WeatherComponentProps } from "../types";
 import { formatTime } from "../utils/formatTime";
 import Card from "./Card";
 import WeatherIcon from "./WeatherIcon";
 
-export default function CurrentWeather() {
-	const { data } = useWeatherData();
+export default function CurrentWeather({ coords }: WeatherComponentProps) {
+	const { data } = useWeatherData(coords);
 
 	return (
 		<Card title="Current Weather">
