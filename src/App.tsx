@@ -4,24 +4,28 @@ import CurrentWeather from "./components/CurrentWeather";
 import DailyForecast from "./components/DailyForecast";
 import HourlyForecast from "./components/HourlyForecast";
 import MapWrapper from "./components/MapWrapper";
+import SearchPlacesAutoComplete from "./components/SearchPlacesAutoComplete";
 import type { Coords } from "./types";
 
 function App() {
-	const [coords, setCoords] = useState<Coords>({ lat: 50, lng: 100 });
+	const [coords, setCoords] = useState<Coords>({
+		lat: 3.029152,
+		lng: 101.617733,
+	});
 
-	const onMapClick = (coords: Coords) => {
-		setCoords(coords);
+	const handleSetCoordinates = (place: Coords) => {
+		setCoords({ lat: place.lat, lng: place.lng });
 	};
 
 	return (
 		<main className="min-h-screen bg-mist-700 text-white">
-			<h1 className="text-2xl tracking-wide">Weather Dashboard</h1>
 			<div className="flex max-w-screen flex-col gap-6 p-8">
-				<MapWrapper coords={coords} onMapClick={onMapClick} />
-				<AdditionalWeatherInfo coords={coords} />
+				<SearchPlacesAutoComplete handleSetCoordinates={handleSetCoordinates} />
+				<MapWrapper coords={coords} onMapClick={handleSetCoordinates} />
 				<CurrentWeather coords={coords} />
 				<HourlyForecast coords={coords} />
 				<DailyForecast coords={coords} />
+				<AdditionalWeatherInfo coords={coords} />
 			</div>
 		</main>
 	);

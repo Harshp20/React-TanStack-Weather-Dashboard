@@ -138,3 +138,16 @@ export const WeatherResponseSchema = z.object({
 });
 
 export type WeatherData = z.infer<typeof WeatherResponseSchema>;
+
+export const ReverseGeocodeSchema = z.array(
+	z.object({
+		name: z.string(),
+		local_names: z.record(z.string(), z.string()).optional(),
+		lat: z.number(),
+		lon: z.number(),
+		country: z.string(),
+		state: z.string().optional(),
+	}),
+);
+
+export type ReverseGeocode = z.infer<typeof ReverseGeocodeSchema>;

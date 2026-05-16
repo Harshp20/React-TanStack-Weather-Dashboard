@@ -1,17 +1,31 @@
-import type { Coords } from "./hooks/useWeatherData";
-import { WeatherResponseSchema } from "./schemas/weather-data-schema";
+import {
+	ReverseGeocodeSchema,
+	WeatherResponseSchema,
+} from "./schemas/weather-data-schema";
+import type { Coords } from "./types";
 
+const BASE_URL = "https://api.openweathermap.org";
 const API_KEY = import.meta.env.VITE_API_KEY;
-export async function getWeatherData(coords: Coords) {
+export async function getWeatherData({ lat, lng }: Coords) {
 	const res = await fetch(
-		// ""
-		`https://api.openweathermap.org/data/3.0/onecall?lat=${coords.lat}&lon=${coords.lng}&units=metric&exclude=minutely,alerts&appid=${API_KEY}`,
+		`${BASE_URL}/data/3.0/onecall?lat=${lat}&lon=${lng}&units=metric&exclude=minutely,alerts&appid=${API_KEY}`,
 	);
 	const data = await res.json();
 	return WeatherResponseSchema.parse(data);
 }
 
-export const data = {
+export async function reverseGeocodeFromCoords(
+	{ lat, lng }: Coords,
+	limit = 5,
+) {
+	const res = await fetch(
+		`${BASE_URL}/geo/1.0/reverse?lat=${lat}&lon=${lng}&limit=${limit}&appid=${API_KEY}`,
+	);
+	const data = await res.json();
+	return ReverseGeocodeSchema.parse(data);
+}
+
+const mockWeatherData = {
 	lat: 33.44,
 	lon: -94.04,
 	timezone: "America/Chicago",
@@ -1504,3 +1518,21 @@ export const data = {
 		},
 	],
 };
+
+const mockReverseGeocodeData = [
+	{
+		name: "Subang Jaya City Council",
+		local_names: {
+			ta: "சுபாங் ஜெயா",
+			en: "Subang Jaya City Council",
+			zh: "梳邦再也",
+			ar: "سوبانق جايا",
+			ms: "Majlis Bandaraya Subang Jaya",
+			ja: "スバン・ジャヤ",
+		},
+		lat: 3.051487,
+		lon: 101.5823339,
+		country: "MY",
+		state: "Selangor",
+	},
+];
