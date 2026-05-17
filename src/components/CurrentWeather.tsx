@@ -25,11 +25,11 @@ export default function CurrentWeather({ coords }: WeatherComponentProps) {
 					</p>
 					{/* NOTE: Declaration in component would be more readable but this is how it's done using render props syntax. */}
 					{(() => {
-						const reverseGeocodedData = reverseGeocodeData[0];
+						const locationFromCoordinates = reverseGeocodeData[0];
 						return (
 							<p className="text-xl capitalize">
-								{reverseGeocodedData.local_names &&
-									` ${reverseGeocodedData.local_names.en}`}
+								{locationFromCoordinates?.local_names &&
+									` ${locationFromCoordinates?.local_names?.en ?? locationFromCoordinates.name}`}
 							</p>
 						);
 					})()}
