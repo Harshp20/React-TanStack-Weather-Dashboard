@@ -5,12 +5,15 @@ import { formatTime } from "../utils/formatTime";
 import Card from "./Card";
 import WeatherIcon from "./WeatherIcon";
 
-export default function CurrentWeather({ coords }: WeatherComponentProps) {
+export default function CurrentWeather({
+	coords,
+	className,
+}: WeatherComponentProps) {
 	const { data: weatherData } = useWeatherData(coords);
 	const { data: reverseGeocodeData } = useReverseGeocode(coords);
 
 	return (
-		<Card title="Current Weather">
+		<Card title="Current Weather" className={className}>
 			<div className="flex flex-col gap-4">
 				<div className="flex flex-col items-center justify-between gap-2">
 					<h2 className="text-6xl">{Math.round(weatherData.current.temp)}°</h2>

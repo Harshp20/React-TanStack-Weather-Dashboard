@@ -21,8 +21,10 @@ function App() {
 		<main className="min-h-screen bg-mist-700 text-white">
 			<div className="flex max-w-screen flex-col gap-6 p-8">
 				<SearchPlacesAutoComplete handleSetCoordinates={handleSetCoordinates} />
-				<MapWrapper coords={coords} onMapClick={handleSetCoordinates} />
-				<CurrentWeather coords={coords} />
+				<div className="grid grid-cols-[1fr_2fr] gap-6">
+					<CurrentWeather coords={coords} />
+					<MapWrapper coords={coords} onMapClick={handleSetCoordinates} />
+				</div>
 				<HourlyForecast coords={coords} />
 				<DailyForecast coords={coords} />
 				<AdditionalWeatherInfo coords={coords} />

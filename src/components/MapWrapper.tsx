@@ -4,6 +4,7 @@ import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef } from "react";
 import type { Coords, WeatherComponentProps } from "../types";
+import { cn } from "../utils/cn";
 
 const DETAIL_ZOOM = 13;
 const OVERVIEW_ZOOM = 5;
@@ -12,9 +13,17 @@ const INITIAL_ZOOM = 2;
 export default function MapWrapper({
 	coords,
 	onMapClick,
+	className,
 }: WeatherComponentProps & MapClickProps) {
 	return (
-		<MapContainer className="flex-1 h-[500px]" center={coords} zoom={INITIAL_ZOOM}>
+		<MapContainer
+			className={cn(
+				"h-full min-h-[500px] w-full overflow-hidden rounded-xl border border-gray-700",
+				className,
+			)}
+			center={coords}
+			zoom={INITIAL_ZOOM}
+		>
 			<TileLayer
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
