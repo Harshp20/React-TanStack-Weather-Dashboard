@@ -126,7 +126,7 @@ export default function PlaceSearch({
 	} as const;
 
 	return (
-		<Box sx={{ width: "50%", maxWidth: "100%" }}>
+		<Box sx={{ width: "30%", maxWidth: "100%" }}>
 			<Autocomplete
 				fullWidth
 				freeSolo
