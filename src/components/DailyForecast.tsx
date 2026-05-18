@@ -1,7 +1,7 @@
+import type { WeatherComponentProps } from "@/types";
 import { useWeatherData } from "../hooks/useWeatherData";
 import { formatDate } from "../utils/formatDate";
 import Card from "./Card";
-import type { WeatherComponentProps } from "./CurrentWeather";
 import WeatherIcon from "./WeatherIcon";
 
 export default function DailyForecast({ coords }: WeatherComponentProps) {
@@ -23,9 +23,9 @@ export default function DailyForecast({ coords }: WeatherComponentProps) {
 
 						<p className="flex-1 text-gray-300">{day.temp.day}°</p>
 
-						<p className="flex-1 text-gray-300/75">{day.temp.min}°</p>
+						<p className="flex-1 text-subtle">{day.temp.min}°</p>
 
-						<p className="flex-1 text-gray-300/75">{day.temp.max}°</p>
+						<p className="flex-1 text-subtle">{day.temp.max}°</p>
 					</div>
 				))}
 			</div>

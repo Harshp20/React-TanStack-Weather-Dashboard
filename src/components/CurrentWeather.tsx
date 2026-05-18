@@ -13,7 +13,7 @@ export default function CurrentWeather({
 	const { data: reverseGeocodeData } = useReverseGeocode(coords);
 
 	return (
-		<Card title="Current Weather" className={className}>
+		<Card className={className}>
 			<div className="flex flex-col gap-4">
 				<div className="flex flex-col items-center justify-between gap-2">
 					<h2 className="text-6xl">{Math.round(weatherData.current.temp)}°</h2>
@@ -40,23 +40,23 @@ export default function CurrentWeather({
 						<h3 className="text-3xl font-thin text-nowrap">
 							{formatTime(weatherData.current.dt)}
 						</h3>
-						<p className="text-muted">(local time)</p>
+						<p className="text-subtle">(local time)</p>
 					</div>
 				</div>
 				<div className="flex items-center justify-between">
 					<div className="flex flex-col items-center justify-between gap-2">
-						<p className="text-muted">Feels like</p>
+						<p className="text-subtle">Feels like</p>
 						<p className="text-md">
 							{" "}
 							{Math.round(weatherData.current.feels_like)}°
 						</p>
 					</div>
 					<div className="flex flex-col items-center justify-between gap-2">
-						<p className="text-muted">Wind </p>
+						<p className="text-subtle">Wind </p>
 						<p className="text-md"> {weatherData.current.wind_speed} kph</p>
 					</div>
 					<div className="flex flex-col items-center justify-between gap-2">
-						<p className="text-muted">Humidity</p>
+						<p className="text-subtle">Humidity</p>
 						<p className="text-md">{weatherData.current.humidity}%</p>
 					</div>
 				</div>

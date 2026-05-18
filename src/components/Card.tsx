@@ -3,7 +3,7 @@ import { cn } from "../utils/cn";
 
 type CardProps = Readonly<{
 	children: React.ReactNode;
-	title: string;
+	title?: string;
 }> &
 	WithClassName;
 

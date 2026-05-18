@@ -1,9 +1,8 @@
 import { useState } from "react";
 import AdditionalWeatherInfo from "./components/AdditionalWeatherInfo";
-import CurrentWeather from "./components/CurrentWeather";
 import DailyForecast from "./components/DailyForecast";
 import HourlyForecast from "./components/HourlyForecast";
-import MapWrapper from "./components/MapWrapper";
+import MainMap from "./components/MainMap";
 import SearchPlacesAutoComplete from "./components/SearchPlacesAutoComplete";
 import type { Coords } from "./types";
 
@@ -21,10 +20,7 @@ function App() {
 		<main className="min-h-screen bg-mist-700 text-white">
 			<div className="flex max-w-screen flex-col gap-6 p-8">
 				<SearchPlacesAutoComplete handleSetCoordinates={handleSetCoordinates} />
-				<div className="grid grid-cols-[1fr_2fr] gap-6">
-					<CurrentWeather coords={coords} />
-					<MapWrapper coords={coords} onMapClick={handleSetCoordinates} />
-				</div>
+				<MainMap coords={coords} handleSetCoordinates={handleSetCoordinates} />
 				<HourlyForecast coords={coords} />
 				<DailyForecast coords={coords} />
 				<AdditionalWeatherInfo coords={coords} />

@@ -2,19 +2,22 @@ import type { LeafletMouseEvent } from "leaflet";
 import L from "leaflet";
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
 import { useEffect, useRef } from "react";
 import type { Coords, WeatherComponentProps } from "../types";
 import { cn } from "../utils/cn";
+import type { MapLayerKey } from "./MapLayerSelector";
 
 const DETAIL_ZOOM = 13;
 const OVERVIEW_ZOOM = 5;
 const INITIAL_ZOOM = 2;
 
 export default function MapWrapper({
+	mapLayer,
 	coords,
 	onMapClick,
 	className,
-}: WeatherComponentProps & MapClickProps) {
+}: WeatherComponentProps & MapClickProps & { mapLayer: MapLayerKey }) {
 	return (
 		<MapContainer
 			className={cn(
@@ -26,11 +29,13 @@ export default function MapWrapper({
 		>
 			<TileLayer
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+				url={`https://tile.openweathermap.org/map/${mapLayer}/{z}/{x}/{y}.png?appid=${import.meta.env.VITE_API_KEY}`}
 			/>
+
 			<Marker position={coords} />
 			<FlyToCoords coords={coords} />
 			<MapClick onMapClick={onMapClick} />
+			<MapTileLayer />
 		</MapContainer>
 	);
 }
@@ -103,6 +108,24 @@ function MapClick({ onMapClick }: Pick<MapClickProps, "onMapClick">) {
 			map.off("click", handleClick);
 		};
 	}, [map, onMapClick]);
+
+	return null;
+}
+
+function MapTileLayer() {
+	const map = useMap();
+
+	useEffect(() => {
+		const tileLayer = new MaptilerLayer({
+			style: "basic-dark",
+			apiKey: "evmmmUmJ2LNpbjMVyYm7",
+		});
+		tileLayer.addTo(map);
+
+		return () => {
+			map.removeLayer(tileLayer);
+		};
+	}, [map]);
 
 	return null;
 }
