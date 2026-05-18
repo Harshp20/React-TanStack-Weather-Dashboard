@@ -22,7 +22,7 @@ export function WeatherInfoRow({
 		<div className="flex justify-between border-b border-gray-600/50 pb-1 first:pt-0 last:border-0 last:pb-0">
 			<div className="flex items-center gap-2">
 				<p className="text-white/75"> {title}</p>
-				<Icon size={20} color="#ff771c" />
+				<Icon size={20} color="var(--color-standout)" />
 			</div>
 			<p>{formatWeatherData(data, key)}</p>
 		</div>

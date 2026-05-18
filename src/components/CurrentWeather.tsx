@@ -23,7 +23,7 @@ export default function CurrentWeather({
 							iconClassNames="size-14"
 						/>
 					</p>
-					<p className="text-lg text-muted capitalize">
+					<p className="text-lg text-important capitalize">
 						{weatherData.current.weather[0].description}
 					</p>
 					{/* NOTE: Declaration in component would be more readable but this is how it's done using render props syntax. */}

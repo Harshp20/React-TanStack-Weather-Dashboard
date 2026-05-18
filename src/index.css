@@ -4,6 +4,7 @@
   --color-mist-700: #1a1d24;
   --color-mist-800: #252a35;
   --color-mist-900: #12151a;
+  --color-standout: #ff771c;
 }
 
 :root {
@@ -44,4 +45,8 @@
 
 @utility text-muted {
   @apply text-white/50;
+}
+
+@utility text-important {
+  color: var(--color-standout)
 }
