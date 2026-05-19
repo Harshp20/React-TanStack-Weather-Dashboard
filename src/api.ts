@@ -5,10 +5,10 @@ import {
 import type { Coords } from "./types";
 
 const BASE_URL = "https://api.openweathermap.org";
-const API_KEY = import.meta.env.VITE_API_KEY;
+const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 export async function getWeatherData({ lat, lng }: Coords) {
 	const res = await fetch(
-		`${BASE_URL}/data/3.0/onecall?lat=${lat}&lon=${lng}&units=metric&exclude=minutely,alerts&appid=${API_KEY}`,
+		`${BASE_URL}/data/3.0/onecall?lat=${lat}&lon=${lng}&units=metric&exclude=minutely,alerts&appid=${OPENWEATHER_API_KEY}`,
 	);
 	const data = await res.json();
 	return WeatherResponseSchema.parse(data);
@@ -19,7 +19,7 @@ export async function reverseGeocodeFromCoords(
 	limit = 5,
 ) {
 	const res = await fetch(
-		`${BASE_URL}/geo/1.0/reverse?lat=${lat}&lon=${lng}&limit=${limit}&appid=${API_KEY}`,
+		`${BASE_URL}/geo/1.0/reverse?lat=${lat}&lon=${lng}&limit=${limit}&appid=${OPENWEATHER_API_KEY}`,
 	);
 	const data = await res.json();
 	return ReverseGeocodeSchema.parse(data);

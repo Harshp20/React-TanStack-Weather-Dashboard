@@ -11,6 +11,8 @@ import type { MapLayerKey } from "./MapLayerSelector";
 const DETAIL_ZOOM = 13;
 const OVERVIEW_ZOOM = 5;
 const INITIAL_ZOOM = 2;
+const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
+const MAPTILER_API_KEY = import.meta.env.VITE_MAPTILER_API_KEY;
 
 export default function MapWrapper({
 	mapLayer,
@@ -29,7 +31,7 @@ export default function MapWrapper({
 		>
 			<TileLayer
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-				url={`https://tile.openweathermap.org/map/${mapLayer}/{z}/{x}/{y}.png?appid=${import.meta.env.VITE_API_KEY}`}
+				url={`https://tile.openweathermap.org/map/${mapLayer}/{z}/{x}/{y}.png?appid=${OPENWEATHER_API_KEY}`}
 			/>
 
 			<Marker position={coords} />
@@ -118,7 +120,7 @@ function MapTileLayer() {
 	useEffect(() => {
 		const tileLayer = new MaptilerLayer({
 			style: "basic-dark",
-			apiKey: "evmmmUmJ2LNpbjMVyYm7",
+			apiKey: MAPTILER_API_KEY,
 		});
 		tileLayer.addTo(map);
 
