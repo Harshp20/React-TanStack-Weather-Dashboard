@@ -31,8 +31,8 @@ export default function MapLayerSelector({
 	};
 
 	return (
-		<div className="flex-center gap-4 self-end">
-			<p className="text-subtle">Select Map Layer:</p>
+		<div className="flex-center gap-4">
+			<p className="text-subtle text-sm">Select Map Layer:</p>
 			<Select value={mapLayer} onValueChange={handleSetMapLayer}>
 				<SelectTrigger className="w-[180px]">
 					<SelectValue placeholder="Layer" />

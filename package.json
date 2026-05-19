@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.14.1",
     "@fontsource-variable/geist": "^5.2.9",
     "@maptiler/leaflet-maptilersdk": "^4.1.1",
+    "@maptiler/sdk": "^4.0.2",
     "@mui/icons-material": "^9.0.1",
     "@mui/material": "^9.0.1",
     "@tailwindcss/vite": "^4.2.4",

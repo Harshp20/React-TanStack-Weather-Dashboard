@@ -4,6 +4,7 @@ import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
 import { useEffect, useRef } from "react";
+import type { MapStyleId } from "@/lib/maptilerStyles";
 import type { Coords, WeatherComponentProps } from "../types";
 import { cn } from "../utils/cn";
 import type { MapLayerKey } from "./MapLayerSelector";
@@ -16,10 +17,12 @@ const MAPTILER_API_KEY = import.meta.env.VITE_MAPTILER_API_KEY;
 
 export default function MapWrapper({
 	mapLayer,
+	mapStyle,
 	coords,
 	onMapClick,
 	className,
-}: WeatherComponentProps & MapClickProps & { mapLayer: MapLayerKey }) {
+}: WeatherComponentProps &
+	MapClickProps & { mapLayer: MapLayerKey; mapStyle: MapStyleId }) {
 	return (
 		<MapContainer
 			className={cn(
@@ -37,7 +40,7 @@ export default function MapWrapper({
 			<Marker position={coords} />
 			<FlyToCoords coords={coords} />
 			<MapClick onMapClick={onMapClick} />
-			<MapTileLayer />
+			<MapTileLayer mapStyle={mapStyle} />
 		</MapContainer>
 	);
 }
@@ -114,12 +117,12 @@ function MapClick({ onMapClick }: Pick<MapClickProps, "onMapClick">) {
 	return null;
 }
 
-function MapTileLayer() {
+function MapTileLayer({ mapStyle }: { mapStyle: MapStyleId }) {
 	const map = useMap();
 
 	useEffect(() => {
 		const tileLayer = new MaptilerLayer({
-			style: "basic-dark",
+			style: mapStyle,
 			apiKey: MAPTILER_API_KEY,
 		});
 		tileLayer.addTo(map);
@@ -127,7 +130,7 @@ function MapTileLayer() {
 		return () => {
 			map.removeLayer(tileLayer);
 		};
-	}, [map]);
+	}, [map, mapStyle]);
 
 	return null;
 }
