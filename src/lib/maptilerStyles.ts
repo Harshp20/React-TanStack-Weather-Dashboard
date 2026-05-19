@@ -12,7 +12,7 @@ export const DEFAULT_MAP_STYLE_ID: MapStyleId = "streets-v4-dark";
 
 export type MapStyleOption = {
 	id: MapStyleId;
-	label: string;
+	title: string;
 	referenceStyleId: string;
 	variantType: string;
 	deprecated?: boolean;
@@ -68,7 +68,7 @@ export function getMapStyleOptions(
 			.filter((variant) => includeDeprecated || !variant.deprecated)
 			.map((variant) => ({
 				id: variant.id,
-				label:
+				title:
 					variant.variantType === "DEFAULT"
 						? preset.name
 						: `${preset.name} – ${variant.name}`,
