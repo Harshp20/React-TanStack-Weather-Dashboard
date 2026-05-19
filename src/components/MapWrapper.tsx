@@ -7,6 +7,7 @@ import { useEffect, useRef } from "react";
 import type { MapStyleId } from "@/lib/maptilerStyles";
 import type { Coords, MapLayerKey, WeatherComponentProps } from "../types";
 import { cn } from "../utils/cn";
+import MapLegend from "./MapLegend";
 
 const DETAIL_ZOOM = 13;
 const OVERVIEW_ZOOM = 8;
@@ -23,24 +24,29 @@ export default function MapWrapper({
 }: WeatherComponentProps &
 	MapClickProps & { mapLayer: MapLayerKey; mapStyle: MapStyleId }) {
 	return (
-		<MapContainer
+		<div
 			className={cn(
-				"h-full min-h-[500px] w-full overflow-hidden rounded-xl border border-gray-700",
+				"relative h-full min-h-[500px] w-full",
 				className,
 			)}
-			center={coords}
-			zoom={INITIAL_ZOOM}
 		>
-			<TileLayer
-				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-				url={`https://tile.openweathermap.org/map/${mapLayer}/{z}/{x}/{y}.png?appid=${OPENWEATHER_API_KEY}`}
-			/>
+			<MapContainer
+				className="h-full min-h-[500px] w-full overflow-hidden rounded-xl border border-gray-700"
+				center={coords}
+				zoom={INITIAL_ZOOM}
+			>
+				<TileLayer
+					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+					url={`https://tile.openweathermap.org/map/${mapLayer}/{z}/{x}/{y}.png?appid=${OPENWEATHER_API_KEY}`}
+				/>
 
-			<Marker position={coords} />
-			<FlyToCoords coords={coords} />
-			<MapClick onMapClick={onMapClick} />
-			<MapTileLayer mapStyle={mapStyle} />
-		</MapContainer>
+				<Marker position={coords} />
+				<FlyToCoords coords={coords} />
+				<MapClick onMapClick={onMapClick} />
+				<MapTileLayer mapStyle={mapStyle} />
+			</MapContainer>
+			<MapLegend mapLayer={mapLayer} />
+		</div>
 	);
 }
 
