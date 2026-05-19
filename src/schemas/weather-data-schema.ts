@@ -1,5 +1,21 @@
 import { z } from "zod";
 
+/** OpenWeather may omit or null out fields depending on conditions (e.g. no wind gust, polar sunrise). */
+const apiNumber = z.number().nullish();
+
+const weatherConditionSchema = z.object({
+	id: z.number(),
+	main: z.string(),
+	description: z.string(),
+	icon: z.string(),
+});
+
+const precipitationSchema = z
+	.object({
+		"1h": z.number(),
+	})
+	.optional();
+
 export const WeatherResponseSchema = z.object({
 	lat: z.number(),
 	lon: z.number(),
@@ -9,8 +25,8 @@ export const WeatherResponseSchema = z.object({
 
 	current: z.object({
 		dt: z.number(),
-		sunrise: z.number(),
-		sunset: z.number(),
+		sunrise: apiNumber,
+		sunset: apiNumber,
 
 		temp: z.number(),
 		feels_like: z.number(),
@@ -21,26 +37,15 @@ export const WeatherResponseSchema = z.object({
 
 		uvi: z.number(),
 		clouds: z.number(),
-		visibility: z.number(),
+		visibility: apiNumber,
 
 		wind_speed: z.number(),
 		wind_deg: z.number(),
-		wind_gust: z.number(),
+		wind_gust: apiNumber,
 
-		weather: z.array(
-			z.object({
-				id: z.number(),
-				main: z.string(),
-				description: z.string(),
-				icon: z.string(),
-			}),
-		),
+		weather: z.array(weatherConditionSchema),
 
-		rain: z
-			.object({
-				"1h": z.number(),
-			})
-			.optional(),
+		rain: precipitationSchema,
 	}),
 
 	hourly: z.array(
@@ -56,28 +61,17 @@ export const WeatherResponseSchema = z.object({
 
 			uvi: z.number(),
 			clouds: z.number(),
-			visibility: z.number(),
+			visibility: apiNumber,
 
 			wind_speed: z.number(),
 			wind_deg: z.number(),
-			wind_gust: z.number(),
+			wind_gust: apiNumber,
 
-			weather: z.array(
-				z.object({
-					id: z.number(),
-					main: z.string(),
-					description: z.string(),
-					icon: z.string(),
-				}),
-			),
+			weather: z.array(weatherConditionSchema),
 
 			pop: z.number(),
 
-			rain: z
-				.object({
-					"1h": z.number(),
-				})
-				.optional(),
+			rain: precipitationSchema,
 		}),
 	),
 
@@ -85,11 +79,11 @@ export const WeatherResponseSchema = z.object({
 		z.object({
 			dt: z.number(),
 
-			sunrise: z.number(),
-			sunset: z.number(),
+			sunrise: apiNumber,
+			sunset: apiNumber,
 
-			moonrise: z.number(),
-			moonset: z.number(),
+			moonrise: apiNumber,
+			moonset: apiNumber,
 			moon_phase: z.number(),
 
 			summary: z.string(),
@@ -116,21 +110,14 @@ export const WeatherResponseSchema = z.object({
 
 			wind_speed: z.number(),
 			wind_deg: z.number(),
-			wind_gust: z.number(),
+			wind_gust: apiNumber,
 
-			weather: z.array(
-				z.object({
-					id: z.number(),
-					main: z.string(),
-					description: z.string(),
-					icon: z.string(),
-				}),
-			),
+			weather: z.array(weatherConditionSchema),
 
 			clouds: z.number(),
 			pop: z.number(),
 
-			rain: z.number().optional(),
+			rain: apiNumber,
 
 			uvi: z.number(),
 		}),

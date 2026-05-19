@@ -2,9 +2,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import {
 	Autocomplete,
 	Box,
-	Chip,
 	CircularProgress,
-	Paper,
 	TextField,
 	Typography,
 } from "@mui/material";
@@ -74,7 +72,6 @@ export default function PlaceSearch({
 	const [query, setQuery] = useState("");
 	const [options, setOptions] = useState<NominatimPlace[]>([]);
 	const [loading, setLoading] = useState(false);
-	const [selectedPlace, setSelectedPlace] = useState<PlaceResult | null>(null);
 	const abortRef = useRef<AbortController | null>(null);
 	const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -141,6 +138,14 @@ export default function PlaceSearch({
 				}}
 				filterOptions={(x) => x}
 				options={options}
+				getOptionKey={(option) =>
+					typeof option === "string" ? option : option.place_id
+				}
+				isOptionEqualToValue={(option, value) =>
+					typeof option !== "string" &&
+					typeof value !== "string" &&
+					option.place_id === value.place_id
+				}
 				getOptionLabel={(option) =>
 					typeof option === "string" ? option : option.display_name
 				}
@@ -159,22 +164,18 @@ export default function PlaceSearch({
 							displayName: newValue.display_name,
 							type: newValue.type,
 						};
-						setSelectedPlace(place);
 						onSelect?.(place);
 					}
 				}}
 				renderOption={(props, option, { inputValue }) => {
-					const { key, ...rest } = props as { key: string } & Record<
-						string,
-						unknown
-					>;
+					const { key: _key, ...rest } = props;
 					const mainName = option.display_name.split(",")[0];
 					const restOfAddress = option.display_name.slice(mainName.length + 2);
 
 					return (
 						<Box
 							component="li"
-							key={key}
+							key={option.place_id}
 							{...rest}
 							sx={{
 								"&.MuiAutocomplete-option": {

@@ -5,37 +5,43 @@ import { formatTime } from "../utils/formatTime";
 import Card from "./Card";
 import WeatherIcon from "./WeatherIcon";
 
+function formatLocationName(
+	location: { name: string; local_names?: Record<string, string> } | undefined,
+) {
+	if (!location) return null;
+	return location.local_names?.en ?? location.name;
+}
+
 export default function CurrentWeather({
 	coords,
 	className,
 }: WeatherComponentProps) {
 	const { data: weatherData } = useWeatherData(coords);
 	const { data: reverseGeocodeData } = useReverseGeocode(coords);
+	const currentWeather = weatherData.current.weather[0];
+	const locationName = formatLocationName(reverseGeocodeData[0]);
 
 	return (
 		<Card className={className}>
 			<div className="flex flex-col gap-4">
 				<div className="flex flex-col items-center justify-between gap-2">
 					<h2 className="text-6xl">{Math.round(weatherData.current.temp)}°</h2>
-					<p className="flex-center">
-						<WeatherIcon
-							icon={weatherData.current.weather[0].icon}
-							iconClassNames="size-14"
-						/>
-					</p>
-					<p className="text-lg text-important capitalize">
-						{weatherData.current.weather[0].description}
-					</p>
-					{/* NOTE: Declaration in component would be more readable but this is how it's done using render props syntax. */}
-					{(() => {
-						const locationFromCoordinates = reverseGeocodeData[0];
-						return (
-							<p className="text-xl capitalize">
-								{locationFromCoordinates?.local_names &&
-									` ${locationFromCoordinates?.local_names?.en ?? locationFromCoordinates.name}`}
+					{currentWeather ? (
+						<>
+							<p className="flex-center">
+								<WeatherIcon
+									icon={currentWeather.icon}
+									iconClassNames="size-14"
+								/>
 							</p>
-						);
-					})()}
+							<p className="text-lg text-important capitalize">
+								{currentWeather.description}
+							</p>
+						</>
+					) : null}
+					{locationName ? (
+						<p className="text-xl capitalize">{locationName}</p>
+					) : null}
 					<div className="flex items-baseline justify-between gap-2">
 						<h3 className="text-3xl font-thin text-nowrap">
 							{formatTime(weatherData.current.dt)}

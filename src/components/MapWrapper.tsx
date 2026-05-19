@@ -5,13 +5,12 @@ import "leaflet/dist/leaflet.css";
 import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
 import { useEffect, useRef } from "react";
 import type { MapStyleId } from "@/lib/maptilerStyles";
-import type { Coords, WeatherComponentProps } from "../types";
+import type { Coords, MapLayerKey, WeatherComponentProps } from "../types";
 import { cn } from "../utils/cn";
-import type { MapLayerKey } from "./MapLayerSelector";
 
 const DETAIL_ZOOM = 13;
-const OVERVIEW_ZOOM = 5;
-const INITIAL_ZOOM = 2;
+const OVERVIEW_ZOOM = 8;
+const INITIAL_ZOOM = 5;
 const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 const MAPTILER_API_KEY = import.meta.env.VITE_MAPTILER_API_KEY;
 
