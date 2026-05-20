@@ -1,6 +1,7 @@
 import { Suspense, useState } from "react";
 import CurrentWeatherSkeleton from "@/components/skeletons/CurrentWeatherSkeleton";
 import { mapLayers } from "@/constants/mapLayerOptions";
+import { useTheme } from "@/hooks/useTheme";
 import {
 	DEFAULT_DARK_MAP_STYLE_ID,
 	DEFAULT_LIGHT_MAP_STYLE_ID,
@@ -13,7 +14,6 @@ import CurrentWeather from "./CurrentWeather";
 import MapControlsSelector from "./MapControlsSelector";
 import MapErrorBoundary from "./MapErrorBoundary";
 import MapWrapper from "./MapWrapper";
-import { useTheme } from "./theme-provider";
 
 export type { MapStyleId };
 

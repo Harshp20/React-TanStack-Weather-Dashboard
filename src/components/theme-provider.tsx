@@ -1,12 +1,11 @@
 import {
-	createContext,
 	useCallback,
-	useContext,
 	useEffect,
 	useMemo,
 	useState,
 	useSyncExternalStore,
 } from "react";
+import { ThemeProviderContext } from "@/hooks/useTheme";
 import {
 	applyResolvedTheme,
 	applyTheme,
@@ -25,16 +24,6 @@ type ThemeProviderProps = Readonly<{
 	defaultTheme?: ThemeMode;
 	storageKey?: string;
 }>;
-
-type ThemeProviderState = {
-	/** User preference: light, dark, or system. */
-	theme: ThemeMode;
-	/** Effective appearance after resolving system preference. */
-	resolvedTheme: ResolvedTheme;
-	setTheme: (theme: ThemeMode) => void;
-};
-
-const ThemeProviderContext = createContext<ThemeProviderState | null>(null);
 
 export function ThemeProvider({
 	children,
@@ -82,12 +71,4 @@ export function ThemeProvider({
 			{children}
 		</ThemeProviderContext.Provider>
 	);
-}
-
-export function useTheme() {
-	const context = useContext(ThemeProviderContext);
-	if (!context) {
-		throw new Error("useTheme must be used within a ThemeProvider");
-	}
-	return context;
 }
