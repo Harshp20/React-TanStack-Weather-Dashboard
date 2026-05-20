@@ -5,11 +5,16 @@ import {
 	useEffect,
 	useMemo,
 	useState,
+	useSyncExternalStore,
 } from "react";
 import {
+	applyResolvedTheme,
 	applyTheme,
 	getStoredTheme,
+	getSystemTheme,
+	type ResolvedTheme,
 	setStoredTheme,
+	subscribeSystemTheme,
 	type ThemeMode,
 } from "@/lib/theme";
 
@@ -22,7 +27,10 @@ type ThemeProviderProps = Readonly<{
 }>;
 
 type ThemeProviderState = {
+	/** User preference: light, dark, or system. */
 	theme: ThemeMode;
+	/** Effective appearance after resolving system preference. */
+	resolvedTheme: ResolvedTheme;
 	setTheme: (theme: ThemeMode) => void;
 };
 
@@ -34,13 +42,21 @@ export function ThemeProvider({
 	storageKey = STORAGE_KEY,
 }: ThemeProviderProps) {
 	const [theme, setThemeState] = useState<ThemeMode>(() => {
-		if (typeof window === "undefined") return defaultTheme;
+		if (typeof globalThis.window === "undefined") return defaultTheme;
 		const stored = localStorage.getItem(storageKey) as ThemeMode | null;
 		if (stored === "light" || stored === "dark" || stored === "system") {
 			return stored;
 		}
 		return getStoredTheme();
 	});
+
+	const systemTheme = useSyncExternalStore(
+		subscribeSystemTheme,
+		getSystemTheme,
+		() => "light" as ResolvedTheme,
+	);
+
+	const resolvedTheme: ResolvedTheme = theme === "system" ? systemTheme : theme;
 
 	const setTheme = useCallback(
 		(next: ThemeMode) => {
@@ -53,18 +69,13 @@ export function ThemeProvider({
 	);
 
 	useEffect(() => {
-		applyTheme(theme);
+		applyResolvedTheme(resolvedTheme);
+	}, [resolvedTheme]);
 
-		const media = globalThis.matchMedia("(prefers-color-scheme: dark)");
-		const onSystemChange = () => {
-			if (theme === "system") applyTheme("system");
-		};
-
-		media.addEventListener("change", onSystemChange);
-		return () => media.removeEventListener("change", onSystemChange);
-	}, [theme]);
-
-	const value = useMemo(() => ({ theme, setTheme }), [theme, setTheme]);
+	const value = useMemo(
+		() => ({ theme, resolvedTheme, setTheme }),
+		[theme, resolvedTheme, setTheme],
+	);
 
 	return (
 		<ThemeProviderContext.Provider value={value}>

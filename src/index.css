@@ -255,12 +255,10 @@
 }
 
 @utility bg-dashboard-card-gradient {
-  background: linear-gradient(
-    to bottom right,
-    var(--dashboard-card-from),
-    var(--dashboard-card-via),
-    var(--dashboard-card-to)
-  );
+  background: linear-gradient(to bottom right,
+      var(--dashboard-card-from),
+      var(--dashboard-card-via),
+      var(--dashboard-card-to));
 }
 
 @layer base {
@@ -282,6 +280,7 @@
    * when thousands of nodes animate at different speeds).
    */
   @media (prefers-reduced-motion: no-preference) {
+
     body,
     main {
       transition:

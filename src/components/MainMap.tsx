@@ -2,7 +2,8 @@ import { Suspense, useState } from "react";
 import CurrentWeatherSkeleton from "@/components/skeletons/CurrentWeatherSkeleton";
 import { mapLayers } from "@/constants/mapLayerOptions";
 import {
-	DEFAULT_MAP_STYLE_ID,
+	DEFAULT_DARK_MAP_STYLE_ID,
+	DEFAULT_LIGHT_MAP_STYLE_ID,
 	type MapStyleId,
 	mapStyleOptions,
 } from "@/lib/maptilerStyles";
@@ -12,6 +13,7 @@ import CurrentWeather from "./CurrentWeather";
 import MapControlsSelector from "./MapControlsSelector";
 import MapErrorBoundary from "./MapErrorBoundary";
 import MapWrapper from "./MapWrapper";
+import { useTheme } from "./theme-provider";
 
 export type { MapStyleId };
 
@@ -24,10 +26,18 @@ export default function MainMap({
 	coords,
 	handleSetCoordinates,
 }: MainMapProps) {
+	const { resolvedTheme } = useTheme();
+	const themeMapStyle: MapStyleId =
+		resolvedTheme === "dark"
+			? DEFAULT_DARK_MAP_STYLE_ID
+			: DEFAULT_LIGHT_MAP_STYLE_ID;
+	const [mapStyleOverride, setMapStyleOverride] = useState<MapStyleId | null>(
+		null,
+	);
+	const selectedMapStyle = mapStyleOverride ?? themeMapStyle;
+
 	const [selectedMapLayer, setSelectedMapLayer] =
 		useState<MapLayerKey>("precipitation_new");
-	const [selectedMapStyle, setSelectedMapStyle] =
-		useState<MapStyleId>(DEFAULT_MAP_STYLE_ID);
 
 	return (
 		<section className="flex min-w-0 flex-col gap-4 lg:gap-6">
@@ -48,7 +58,7 @@ export default function MainMap({
 						label="Select Map Style"
 						selectedControl={selectedMapStyle}
 						controlOptions={mapStyleOptions}
-						setControl={setSelectedMapStyle}
+						setControl={setMapStyleOverride}
 					/>
 				</div>
 				<MapErrorBoundary>

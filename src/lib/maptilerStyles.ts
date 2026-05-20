@@ -8,7 +8,8 @@ import {
 /** Cloud style id (e.g. `"streets-v4"`) — use as Select value and MaptilerLayer `style` */
 export type MapStyleId = string;
 
-export const DEFAULT_MAP_STYLE_ID: MapStyleId = "streets-v4-dark";
+export const DEFAULT_DARK_MAP_STYLE_ID: MapStyleId = "streets-v4-dark";
+export const DEFAULT_LIGHT_MAP_STYLE_ID: MapStyleId = "streets-v4";
 
 export type MapStyleOption = {
 	id: MapStyleId;
