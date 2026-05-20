@@ -24,8 +24,10 @@ export default function CurrentWeather({
 	return (
 		<Card title="Current Weather" className={className}>
 			<div className="flex flex-col gap-4">
-				<div className="flex flex-col items-center justify-between gap-2">
-					<h2 className="text-6xl">{Math.round(weatherData.current.temp)}°</h2>
+				<div className="flex flex-col items-center gap-2">
+					<h2 className="text-6xl font-medium">
+						{Math.round(weatherData.current.temp)}°
+					</h2>
 					{currentWeather ? (
 						<>
 							<p className="flex-center">
@@ -42,28 +44,32 @@ export default function CurrentWeather({
 					{locationName ? (
 						<p className="text-xl capitalize">{locationName}</p>
 					) : null}
-					<div className="flex items-baseline justify-between gap-2">
+					<div className="flex flex-wrap items-baseline justify-center gap-2">
 						<h3 className="text-3xl font-thin text-nowrap">
 							{formatTime(weatherData.current.dt)}
 						</h3>
 						<p className="text-subtle">(local time)</p>
 					</div>
 				</div>
-				<div className="flex items-center justify-between">
-					<div className="flex flex-col items-center justify-between gap-2">
+
+				<div className="grid grid-cols-3 gap-2 border-t border-dashboard-border-subtle pt-4 sm:flex sm:items-center sm:justify-between">
+					<div className="flex flex-col items-center gap-2">
 						<p className="text-subtle">Feels like</p>
-						<p className="text-md">
-							{" "}
+						<p className="text-md font-medium">
 							{Math.round(weatherData.current.feels_like)}°
 						</p>
 					</div>
-					<div className="flex flex-col items-center justify-between gap-2">
-						<p className="text-subtle">Wind </p>
-						<p className="text-md"> {weatherData.current.wind_speed} kph</p>
+					<div className="flex flex-col items-center gap-2">
+						<p className="text-subtle">Wind</p>
+						<p className="text-md font-medium">
+							{weatherData.current.wind_speed} kph
+						</p>
 					</div>
-					<div className="flex flex-col items-center justify-between gap-2">
+					<div className="flex flex-col items-center gap-2">
 						<p className="text-subtle">Humidity</p>
-						<p className="text-md">{weatherData.current.humidity}%</p>
+						<p className="text-md font-medium">
+							{weatherData.current.humidity}%
+						</p>
 					</div>
 				</div>
 			</div>

@@ -30,12 +30,14 @@ export default function MainMap({
 		useState<MapStyleId>(DEFAULT_MAP_STYLE_ID);
 
 	return (
-		<div className="grid grid-cols-[1fr_2fr] gap-6">
+		<section className="flex min-w-0 flex-col gap-4 lg:gap-6">
+			{/* Weather banner above map — avoids short card beside tall map */}
 			<Suspense fallback={<CurrentWeatherSkeleton />}>
 				<CurrentWeather coords={coords} />
 			</Suspense>
-			<div className="flex flex-col gap-4">
-				<div className="flex justify-end gap-4">
+
+			<div className="flex min-w-0 flex-col gap-4">
+				<div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-end">
 					<MapControlsSelector
 						label="Select Map Layer"
 						selectedControl={selectedMapLayer}
@@ -58,6 +60,6 @@ export default function MainMap({
 					/>
 				</MapErrorBoundary>
 			</div>
-		</div>
+		</section>
 	);
 }

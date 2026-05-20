@@ -1,5 +1,6 @@
 import type { WithClassName } from "../types";
 import { cn } from "../utils/cn";
+import FadeIn from "./FadeIn";
 
 type CardProps = Readonly<{
 	children: React.ReactNode;
@@ -11,12 +12,16 @@ export default function Card({ children, title, className }: CardProps) {
 	return (
 		<section
 			className={cn(
-				"flex flex-col rounded-xl border border-mist-800 bg-linear-to-br from-mist-900 via-mist-900/80 to-mist-900/60 p-3 gap-3 shadow-md",
+				"flex flex-col gap-3 rounded-dashboard border border-dashboard-border bg-dashboard-card-gradient p-card shadow-dashboard-md sm:gap-3 sm:p-card-md",
 				className,
 			)}
 		>
-			<h3 className="text-lg">{title}</h3>
-			{children}
+			{title ? (
+				<h3 className="text-dashboard-title font-medium text-dashboard-fg">
+					{title}
+				</h3>
+			) : null}
+			<FadeIn>{children}</FadeIn>
 		</section>
 	);
 }

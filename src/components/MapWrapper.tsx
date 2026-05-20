@@ -25,9 +25,14 @@ export default function MapWrapper({
 }: WeatherComponentProps &
 	MapClickProps & { mapLayer: MapLayerKey; mapStyle: MapStyleId }) {
 	return (
-		<div className={cn("relative h-full min-h-[500px] w-full", className)}>
+		<div
+			className={cn(
+				"relative h-full min-h-[280px] w-full sm:min-h-[400px] lg:min-h-[500px]",
+				className,
+			)}
+		>
 			<MapContainer
-				className="h-full min-h-[500px] w-full overflow-hidden rounded-xl border border-gray-700"
+				className="h-full min-h-[280px] w-full overflow-hidden rounded-dashboard border border-dashboard-border sm:min-h-[400px] lg:min-h-[500px]"
 				center={coords}
 				zoom={INITIAL_ZOOM}
 			>

@@ -33,10 +33,10 @@ export default function MapControlsSelector<T extends string>({
 	};
 
 	return (
-		<div className="flex-center gap-4">
+		<div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
 			<p className="text-subtle text-sm">{`${label}:`}</p>
 			<Select value={selectedControl} onValueChange={handleSetMapStyle}>
-				<SelectTrigger className="w-[180px]">
+				<SelectTrigger className="w-full sm:w-[180px]">
 					<SelectValue placeholder="Style" />
 				</SelectTrigger>
 				<SelectContent

@@ -1,4 +1,3 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import AdditionalWeatherInfoSkeleton from "./AdditionalWeatherInfoSkeleton";
 import DailyForecastSkeleton from "./DailyForecastSkeleton";
 import HourlyForecastSkeleton from "./HourlyForecastSkeleton";
@@ -8,9 +7,6 @@ import MainMapSkeleton from "./MainMapSkeleton";
 export default function DashboardSkeleton() {
 	return (
 		<>
-			<div className="flex-center">
-				<Skeleton className="h-10 w-full max-w-md rounded-lg" />
-			</div>
 			<MainMapSkeleton />
 			<HourlyForecastSkeleton />
 			<DailyForecastSkeleton />

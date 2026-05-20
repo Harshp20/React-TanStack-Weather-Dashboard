@@ -16,7 +16,7 @@ export default function CardSkeleton({
 	return (
 		<section
 			className={cn(
-				"flex flex-col gap-3 rounded-xl border border-mist-800 bg-linear-to-br from-mist-900 via-mist-900/80 to-mist-900/60 p-3 shadow-md",
+				"flex flex-col gap-3 rounded-dashboard border border-dashboard-border bg-dashboard-card-gradient p-card shadow-dashboard-md sm:p-card-md",
 				className,
 			)}
 		>

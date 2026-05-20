@@ -43,10 +43,10 @@ function LegendScale({ legend }: Readonly<{ legend: MapLayerLegend }>) {
 	const gradient = stopsToLinearGradient(stops);
 
 	return (
-		<div className="rounded-lg border border-gray-700/80 bg-mist-900/90 px-3 py-2 shadow-md backdrop-blur-sm">
-			<p className="text-subtle mb-1.5 text-xs font-medium">
+		<div className="rounded-dashboard border border-dashboard-border bg-dashboard-card/90 px-3 py-2 shadow-dashboard-md backdrop-blur-sm">
+			<p className="text-subtle mb-1.5 text-dashboard-caption font-medium">
 				{title}{" "}
-				<span className="text-white/60">({unit})</span>
+				<span className="opacity-60">({unit})</span>
 			</p>
 			<div
 				className="h-2.5 w-full rounded-sm border border-white/10"

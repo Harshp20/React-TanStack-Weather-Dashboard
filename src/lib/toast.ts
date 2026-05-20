@@ -2,9 +2,9 @@ import toast from "react-hot-toast";
 
 export const toastOptions = {
 	style: {
-		background: "var(--color-mist-800)",
-		color: "#ffffff",
-		border: "1px solid rgba(255, 255, 255, 0.1)",
+		background: "var(--dashboard-card)",
+		color: "var(--dashboard-fg)",
+		border: "1px solid var(--dashboard-border-subtle)",
 		borderRadius: "0.75rem",
 		boxShadow:
 			"0 4px 6px -1px rgba(0, 0, 0, 0.25), 0 2px 4px -2px rgba(0, 0, 0, 0.15)",
@@ -12,8 +12,8 @@ export const toastOptions = {
 		maxWidth: "22rem",
 	},
 	iconTheme: {
-		primary: "var(--color-standout)",
-		secondary: "var(--color-mist-800)",
+		primary: "var(--dashboard-accent)",
+		secondary: "var(--dashboard-card)",
 	},
 } as const;
 

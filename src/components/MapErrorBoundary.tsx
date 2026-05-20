@@ -26,10 +26,10 @@ export default class MapErrorBoundary extends Component<
 		if (this.state.hasError) {
 			return (
 				<div
-					className="flex min-h-[500px] w-full flex-col items-center justify-center gap-2 rounded-xl border border-mist-800 bg-mist-900/80 p-6 text-center"
+					className="flex min-h-[280px] w-full flex-col items-center justify-center gap-2 rounded-dashboard border border-dashboard-border bg-dashboard-card/80 p-6 text-center sm:min-h-[400px] lg:min-h-[500px]"
 					role="alert"
 				>
-					<p className="text-white">Map could not be loaded.</p>
+					<p className="text-dashboard-fg">Map could not be loaded.</p>
 					<p className="text-subtle text-sm">
 						Check your MapTiler API key and try refreshing the page.
 					</p>

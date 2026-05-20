@@ -8,7 +8,7 @@ export default function DailyForecastSkeleton() {
 				{Array.from({ length: 7 }, (_, i) => `day-${i}`).map((id) => (
 					<div
 						key={id}
-						className="flex items-center gap-4 border-b border-gray-600/50 pb-3 last:border-0"
+						className="flex items-center gap-4 border-b border-dashboard-border-subtle pb-3 last:border-0"
 					>
 						<Skeleton className="h-4 flex-1" />
 						<Skeleton className="size-8 shrink-0 rounded-full" />

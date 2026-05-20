@@ -3,15 +3,15 @@ import CurrentWeatherSkeleton from "./CurrentWeatherSkeleton";
 
 export default function MainMapSkeleton() {
 	return (
-		<div className="grid grid-cols-[1fr_2fr] gap-6">
+		<section className="flex min-w-0 flex-col gap-4 lg:gap-6">
 			<CurrentWeatherSkeleton />
-			<div className="flex flex-col gap-4">
-				<div className="flex justify-end gap-4">
+			<div className="flex min-w-0 flex-col gap-4">
+				<div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-end">
 					<Skeleton className="h-8 w-44" />
 					<Skeleton className="h-8 w-44" />
 				</div>
-				<Skeleton className="min-h-[500px] w-full rounded-xl" />
+				<Skeleton className="min-h-[280px] w-full rounded-dashboard sm:min-h-[400px] lg:min-h-[500px]" />
 			</div>
-		</div>
+		</section>
 	);
 }

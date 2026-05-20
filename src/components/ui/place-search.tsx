@@ -53,7 +53,7 @@ function HighlightedText({
 					<Box
 						component="span"
 						key={key}
-						sx={{ fontWeight: 700, color: "#ff771c" }}
+						sx={{ fontWeight: 700, color: "var(--dashboard-accent)" }}
 					>
 						{part}
 					</Box>
@@ -116,21 +116,21 @@ export default function PlaceSearch({
 	}, []);
 
 	const surfaceSx = {
-		bgcolor: "var(--color-mist-900)",
-		color: "white",
-		border: "1px solid var(--color-gray-800)",
-		borderRadius: "12px",
+		bgcolor: "var(--dashboard-input-bg)",
+		color: "var(--dashboard-fg)",
+		border: "1px solid var(--dashboard-input-border)",
+		borderRadius: "var(--radius-dashboard)",
 	} as const;
 
 	return (
-		<Box sx={{ width: "30%", maxWidth: "100%" }}>
+		<Box sx={{ width: "100%" }}>
 			<Autocomplete
 				fullWidth
 				freeSolo
 				sx={{
 					"& .MuiAutocomplete-popupIndicator, & .MuiAutocomplete-clearIndicator":
 						{
-							color: "rgba(255,255,255,0.5)",
+							color: "var(--dashboard-muted)",
 						},
 					"& .MuiAutocomplete-noOptions": {
 						color: "rgba(255,255,255,0.5)",
@@ -181,12 +181,12 @@ export default function PlaceSearch({
 								"&.MuiAutocomplete-option": {
 									px: 2,
 									py: 1.5,
-									color: "white",
+									color: "var(--dashboard-fg)",
 									"&[aria-selected='true']": {
-										bgcolor: "rgba(255,255,255,0.08)",
+										bgcolor: "color-mix(in srgb, var(--dashboard-fg) 8%, transparent)",
 									},
 									"&.Mui-focused": {
-										bgcolor: "rgba(255,255,255,0.08)",
+										bgcolor: "color-mix(in srgb, var(--dashboard-fg) 8%, transparent)",
 									},
 								},
 							}}
@@ -195,7 +195,7 @@ export default function PlaceSearch({
 								sx={{
 									mr: 1.5,
 									mt: 0.5,
-									color: "rgba(255,255,255,0.5)",
+									color: "var(--dashboard-muted)",
 									fontSize: 20,
 								}}
 							/>
@@ -206,7 +206,7 @@ export default function PlaceSearch({
 								<Typography
 									variant="caption"
 									sx={{
-										color: "rgba(255,255,255,0.5)",
+										color: "var(--dashboard-muted)",
 										display: "block",
 										overflow: "hidden",
 										textOverflow: "ellipsis",
@@ -244,19 +244,19 @@ export default function PlaceSearch({
 							"& .MuiOutlinedInput-root": {
 								...surfaceSx,
 								"& fieldset": {
-									borderColor: "var(--color-gray-700)",
+									borderColor: "var(--dashboard-input-border)",
 								},
 								"&:hover fieldset": {
-									borderColor: "var(--color-gray-600)",
+									borderColor: "var(--dashboard-border)",
 								},
 								"&.Mui-focused fieldset": {
-									borderColor: "#ff771c",
+									borderColor: "var(--dashboard-accent)",
 								},
 							},
 							"& .MuiInputBase-input": {
-								color: "white",
+								color: "var(--dashboard-fg)",
 								"&::placeholder": {
-									color: "rgba(255,255,255,0.5)",
+									color: "var(--dashboard-muted)",
 									opacity: 1,
 								},
 							},

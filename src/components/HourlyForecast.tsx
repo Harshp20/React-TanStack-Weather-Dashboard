@@ -9,16 +9,21 @@ export default function HourlyForecast({ coords }: WeatherComponentProps) {
 
 	return (
 		<Card title="Hourly Forecast (48 Hours)">
-			<ul className="flex justify-between gap-8 overflow-x-auto">
+			<ul className="-mx-1 flex gap-4 overflow-x-auto px-1 pb-1 sm:gap-6 md:gap-8">
 				{data.hourly.map((hour) => (
-					<li key={hour.dt} className="flex flex-col gap-2 text-center">
-						<p className="text-nowrap">{formatTime(hour.dt)}</p>
+					<li
+						key={hour.dt}
+						className="flex min-w-[4.5rem] shrink-0 flex-col gap-2 text-center text-dashboard-body"
+					>
+						<p className="text-dashboard-caption text-nowrap sm:text-dashboard-body">
+							{formatTime(hour.dt)}
+						</p>
 						{hour.weather[0] ? (
 							<p className="flex-center">
 								<WeatherIcon icon={hour.weather[0].icon} />
 							</p>
 						) : null}
-						<div>{hour.temp}°</div>
+						<div className="font-medium">{hour.temp}°</div>
 					</li>
 				))}
 			</ul>
