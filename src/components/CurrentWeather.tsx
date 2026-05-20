@@ -22,7 +22,7 @@ export default function CurrentWeather({
 	const locationName = formatLocationName(reverseGeocodeData[0]);
 
 	return (
-		<Card className={className}>
+		<Card title="Current Weather" className={className}>
 			<div className="flex flex-col gap-4">
 				<div className="flex flex-col items-center justify-between gap-2">
 					<h2 className="text-6xl">{Math.round(weatherData.current.temp)}°</h2>
@@ -34,7 +34,7 @@ export default function CurrentWeather({
 									iconClassNames="size-14"
 								/>
 							</p>
-							<p className="text-lg text-important capitalize">
+							<p className="text-important text-lg capitalize">
 								{currentWeather.description}
 							</p>
 						</>

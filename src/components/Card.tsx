@@ -11,7 +11,7 @@ export default function Card({ children, title, className }: CardProps) {
 	return (
 		<section
 			className={cn(
-				"flex flex-col rounded-xl border border-gray-700 bg-mist-800 p-3 gap-3 shadow-md",
+				"flex flex-col rounded-xl border border-mist-800 bg-linear-to-br from-mist-900 via-mist-900/80 to-mist-900/60 p-3 gap-3 shadow-md",
 				className,
 			)}
 		>

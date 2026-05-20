@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import CurrentWeatherSkeleton from "@/components/skeletons/CurrentWeatherSkeleton";
 import { mapLayers } from "@/constants/mapLayerOptions";
 import {
 	DEFAULT_MAP_STYLE_ID,
@@ -9,6 +10,7 @@ import type { Coords } from "@/types";
 import type { MapLayerKey } from "../types";
 import CurrentWeather from "./CurrentWeather";
 import MapControlsSelector from "./MapControlsSelector";
+import MapErrorBoundary from "./MapErrorBoundary";
 import MapWrapper from "./MapWrapper";
 
 export type { MapStyleId };
@@ -29,7 +31,9 @@ export default function MainMap({
 
 	return (
 		<div className="grid grid-cols-[1fr_2fr] gap-6">
-			<CurrentWeather coords={coords} />
+			<Suspense fallback={<CurrentWeatherSkeleton />}>
+				<CurrentWeather coords={coords} />
+			</Suspense>
 			<div className="flex flex-col gap-4">
 				<div className="flex justify-end gap-4">
 					<MapControlsSelector
@@ -45,12 +49,14 @@ export default function MainMap({
 						setControl={setSelectedMapStyle}
 					/>
 				</div>
-				<MapWrapper
-					coords={coords}
-					onMapClick={handleSetCoordinates}
-					mapLayer={selectedMapLayer}
-					mapStyle={selectedMapStyle}
-				/>
+				<MapErrorBoundary>
+					<MapWrapper
+						coords={coords}
+						onMapClick={handleSetCoordinates}
+						mapLayer={selectedMapLayer}
+						mapStyle={selectedMapStyle}
+					/>
+				</MapErrorBoundary>
 			</div>
 		</div>
 	);

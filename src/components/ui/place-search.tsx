@@ -116,9 +116,9 @@ export default function PlaceSearch({
 	}, []);
 
 	const surfaceSx = {
-		bgcolor: "var(--color-mist-800)",
+		bgcolor: "var(--color-mist-900)",
 		color: "white",
-		border: "1px solid var(--color-gray-700)",
+		border: "1px solid var(--color-gray-800)",
 		borderRadius: "12px",
 	} as const;
 

@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
 import { useEffect, useRef } from "react";
 import type { MapStyleId } from "@/lib/maptilerStyles";
+import { notify } from "@/lib/toast";
 import type { Coords, MapLayerKey, WeatherComponentProps } from "../types";
 import { cn } from "../utils/cn";
 import MapLegend from "./MapLegend";
@@ -24,12 +25,7 @@ export default function MapWrapper({
 }: WeatherComponentProps &
 	MapClickProps & { mapLayer: MapLayerKey; mapStyle: MapStyleId }) {
 	return (
-		<div
-			className={cn(
-				"relative h-full min-h-[500px] w-full",
-				className,
-			)}
-		>
+		<div className={cn("relative h-full min-h-[500px] w-full", className)}>
 			<MapContainer
 				className="h-full min-h-[500px] w-full overflow-hidden rounded-xl border border-gray-700"
 				center={coords}
@@ -69,13 +65,26 @@ function FlyToCoords({ coords }: Pick<MapClickProps, "coords">) {
 
 		const flyToDetail = () => {
 			if (!cancelled) {
-				map.flyTo(target, DETAIL_ZOOM, { duration: 1 });
+				try {
+					map.flyTo(target, DETAIL_ZOOM, { duration: 1 });
+				} catch {
+					// Map may be torn down during unmount
+				}
+			}
+		};
+
+		const flyTo = (zoom: number, duration: number) => {
+			if (cancelled) return;
+			try {
+				map.flyTo(target, zoom, { duration });
+			} catch {
+				// Map may be torn down during unmount
 			}
 		};
 
 		if (isFirstRender.current) {
 			isFirstRender.current = false;
-			map.flyTo(target, OVERVIEW_ZOOM, { duration: 0.8 });
+			flyTo(OVERVIEW_ZOOM, 0.8);
 			const timer = globalThis.setTimeout(flyToDetail, 850);
 			return () => {
 				cancelled = true;
@@ -85,7 +94,7 @@ function FlyToCoords({ coords }: Pick<MapClickProps, "coords">) {
 		}
 
 		if (isFarFromView(map, target)) {
-			map.flyTo(target, OVERVIEW_ZOOM, { duration: 0.8 });
+			flyTo(OVERVIEW_ZOOM, 0.8);
 			const timer = globalThis.setTimeout(flyToDetail, 850);
 			return () => {
 				cancelled = true;
@@ -94,7 +103,7 @@ function FlyToCoords({ coords }: Pick<MapClickProps, "coords">) {
 			};
 		}
 
-		map.flyTo(target, DETAIL_ZOOM, { duration: 0.8 });
+		flyTo(DETAIL_ZOOM, 0.8);
 		return () => {
 			cancelled = true;
 			map.stop();
@@ -124,16 +133,41 @@ function MapClick({ onMapClick }: Pick<MapClickProps, "onMapClick">) {
 
 function MapTileLayer({ mapStyle }: { mapStyle: MapStyleId }) {
 	const map = useMap();
+	const warnedMissingKey = useRef(false);
 
 	useEffect(() => {
-		const tileLayer = new MaptilerLayer({
-			style: mapStyle,
-			apiKey: MAPTILER_API_KEY,
-		});
-		tileLayer.addTo(map);
+		if (!MAPTILER_API_KEY) {
+			if (!warnedMissingKey.current) {
+				warnedMissingKey.current = true;
+				notify(
+					"Map base layer unavailable (missing MapTiler API key).",
+					"error",
+				);
+			}
+			return;
+		}
+
+		let tileLayer: InstanceType<typeof MaptilerLayer> | null = null;
+
+		try {
+			tileLayer = new MaptilerLayer({
+				style: mapStyle,
+				apiKey: MAPTILER_API_KEY,
+			});
+			tileLayer.addTo(map);
+		} catch (error) {
+			console.error("Failed to add MapTiler layer:", error);
+			notify("Map style could not be loaded.", "error");
+			return;
+		}
 
 		return () => {
-			map.removeLayer(tileLayer);
+			if (!tileLayer) return;
+			try {
+				map.removeLayer(tileLayer);
+			} catch {
+				// Map already destroyed
+			}
 		};
 	}, [map, mapStyle]);
 
