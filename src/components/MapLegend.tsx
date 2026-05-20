@@ -22,12 +22,15 @@ export default function MapLegend({ mapLayer, className }: MapLegendProps) {
 	return (
 		<aside
 			className={cn(
-				"pointer-events-none absolute bottom-4 left-4 z-1000 max-w-[min(100%-2rem,280px)]",
+				"pointer-events-none absolute bottom-2 left-2 z-1000 max-w-[min(calc(100%-1rem),200px)] sm:bottom-4 sm:left-4 sm:max-w-[min(calc(100%-2rem),280px)]",
 				className,
 			)}
 			aria-label="Map layer legend"
 		>
-			<div key={mapLayer} className={cn("flex flex-col gap-2", legendEnterAnimation)}>
+			<div
+				key={mapLayer}
+				className={cn("flex flex-col gap-1 sm:gap-2", legendEnterAnimation)}
+			>
 				{legends.map((legend) => (
 					<LegendScale key={legend.title} legend={legend} />
 				))}
@@ -43,17 +46,17 @@ function LegendScale({ legend }: Readonly<{ legend: MapLayerLegend }>) {
 	const gradient = stopsToLinearGradient(stops);
 
 	return (
-		<div className="rounded-dashboard border border-dashboard-border bg-dashboard-card/90 px-3 py-2 shadow-dashboard-md backdrop-blur-sm">
-			<p className="text-subtle mb-1.5 text-dashboard-caption font-medium">
+		<div className="rounded-dashboard border border-dashboard-border bg-dashboard-card/90 px-2 py-1.5 shadow-dashboard-md backdrop-blur-sm sm:px-3 sm:py-2">
+			<p className="text-subtle mb-1 text-[10px] leading-tight font-medium sm:mb-1.5 sm:text-dashboard-caption">
 				{title}{" "}
 				<span className="opacity-60">({unit})</span>
 			</p>
 			<div
-				className="h-2.5 w-full rounded-sm border border-white/10"
+				className="h-1.5 w-full rounded-sm border border-white/10 sm:h-2.5"
 				style={{ background: gradient }}
 				aria-hidden
 			/>
-			<div className="text-subtle mt-1 flex justify-between text-[10px] tabular-nums">
+			<div className="text-subtle mt-0.5 flex justify-between text-[8px] tabular-nums sm:mt-1 sm:text-[10px]">
 				<span>{formatLegendValue(min, unit)}</span>
 				<span>{formatLegendValue(max, unit)}</span>
 			</div>
