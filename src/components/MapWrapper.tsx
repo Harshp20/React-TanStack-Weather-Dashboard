@@ -2,6 +2,7 @@ import type { LeafletMouseEvent } from "leaflet";
 import L from "leaflet";
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { defaultMarkerIcon } from "@/lib/leafletDefaultIcon";
 import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
 import { useEffect, useRef } from "react";
 import type { MapStyleId } from "@/lib/maptilerStyles";
@@ -41,7 +42,7 @@ export default function MapWrapper({
 					url={`https://tile.openweathermap.org/map/${mapLayer}/{z}/{x}/{y}.png?appid=${OPENWEATHER_API_KEY}`}
 				/>
 
-				<Marker position={coords} />
+				<Marker position={coords} icon={defaultMarkerIcon} />
 				<FlyToCoords coords={coords} />
 				<MapClick onMapClick={onMapClick} />
 				<MapTileLayer mapStyle={mapStyle} />
