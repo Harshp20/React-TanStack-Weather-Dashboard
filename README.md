@@ -1,75 +1,97 @@
-# React + TypeScript + Vite
+# React Weather Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive weather dashboard built with React and TypeScript. Search for a place or use your location, then explore current conditions, hourly and daily forecasts, and an interactive map with OpenWeather overlay layers.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Location search** — Autocomplete powered by [OpenStreetMap Nominatim](https://nominatim.org/)
+- **Geolocation** — Loads your current position on first visit (with a sensible fallback)
+- **Current weather** — Temperature, conditions, feels-like, humidity, and location name via reverse geocoding
+- **Forecasts** — 48-hour hourly scroll and multi-day daily outlook
+- **Additional metrics** — Cloud cover, UV index, wind direction, pressure, sunrise, and sunset
+- **Interactive map** — Click to change location; switch between precipitation, clouds, pressure, wind, and temperature layers
+- **Map styles** — MapTiler basemaps with light/dark theme support and manual style override
+- **Dark mode** — System, light, or dark theme with no flash on load
+- **Loading states** — Skeleton UI while resolving location and fetching data
+- **Validated API responses** — Zod schemas for OpenWeather payloads
 
-## React Compiler
+## Tech stack
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+| Area | Libraries |
+|------|-----------|
+| UI | React 19, Tailwind CSS 4, shadcn/ui, Radix UI, MUI (place search) |
+| Data | TanStack Query, Zod |
+| Maps | Leaflet, react-leaflet, MapTiler SDK, OpenWeather map tiles |
+| Build | Vite 8, TypeScript, React Compiler (Babel) |
+| Tooling | ESLint, Biome, Prettier |
 
-Note: This will impact Vite dev & build performances.
+## Prerequisites
 
-## Expanding the ESLint configuration
+You need API keys from:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. **[OpenWeather](https://openweathermap.org/api)** — One Call API 3.0 and map layers
+2. **[MapTiler](https://www.maptiler.com/)** — Basemap styles
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Both services offer free tiers suitable for development.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Getting started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Clone and install
+
+```bash
+git clone https://github.com/<your-username>/react-weather-dashboard.git
+cd react-weather-dashboard
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Environment variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Create a `.env` file in the project root:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_OPENWEATHER_API_KEY=your_openweather_api_key
+VITE_MAPTILER_API_KEY=your_maptiler_api_key
 ```
+
+> **Note:** Never commit `.env` or API keys. Vite exposes only variables prefixed with `VITE_`.
+
+### 3. Run the dev server
+
+```bash
+npm run dev
+```
+
+Open the URL shown in the terminal (Vite runs with `--host` so you can test on other devices on your network).
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Type-check and production build |
+| `npm run preview` | Preview production build locally |
+| `npm run lint` | Run ESLint |
+
+## Project structure
+
+```
+src/
+├── api.ts                 # OpenWeather fetch + Zod parsing
+├── components/            # UI (map, forecasts, search, skeletons)
+├── constants/             # Map layers, legends, defaults
+├── hooks/                 # Coords, weather data, geocoding, theme
+├── lib/                   # Map styles, theme, toasts
+├── schemas/               # Zod weather schemas
+└── utils/                 # Formatting, geolocation helpers
+```
+
+## How it works
+
+1. On load, `useCoords` resolves coordinates from the browser geolocation API (or a default location if denied).
+2. Coordinates drive TanStack Query requests to OpenWeather One Call 3.0.
+3. The main map renders MapTiler tiles with an OpenWeather raster overlay; clicking the map updates coordinates.
+4. Place search uses Nominatim and updates coordinates when a result is selected.
+
+## License
+
+This project is for learning and portfolio use. Add a license file if you plan to open-source it publicly.
