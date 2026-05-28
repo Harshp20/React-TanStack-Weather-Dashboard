@@ -115,11 +115,15 @@ export default function PlaceSearch({
 		}, 400);
 	}, []);
 
-	const surfaceSx = {
+	const inputSurfaceSx = {
 		bgcolor: "var(--dashboard-input-bg)",
 		color: "var(--dashboard-fg)",
-		border: "1px solid var(--dashboard-input-border)",
 		borderRadius: "var(--radius-dashboard)",
+	} as const;
+
+	const panelSurfaceSx = {
+		...inputSurfaceSx,
+		border: "1px solid var(--dashboard-input-border)",
 	} as const;
 
 	return (
@@ -244,15 +248,17 @@ export default function PlaceSearch({
 						}}
 						sx={{
 							"& .MuiOutlinedInput-root": {
-								...surfaceSx,
+								...inputSurfaceSx,
 								"& fieldset": {
-									borderColor: "var(--dashboard-input-border)",
+									border: "1px solid var(--dashboard-input-border)",
+									borderRadius: "var(--radius-dashboard)",
 								},
 								"&:hover fieldset": {
 									borderColor: "var(--dashboard-border)",
 								},
 								"&.Mui-focused fieldset": {
 									borderColor: "var(--dashboard-accent)",
+									borderWidth: "1px",
 								},
 							},
 							"& .MuiInputBase-input.MuiAutocomplete-input": {
@@ -273,9 +279,9 @@ export default function PlaceSearch({
 					paper: {
 						elevation: 8,
 						sx: {
-							...surfaceSx,
+							...panelSurfaceSx,
 							mt: 1,
-							boxShadow: "0 4px 6px -2px rgba(0,0,0,0.3)",
+							boxShadow: "var(--dashboard-shadow-md)",
 						},
 					},
 					listbox: {

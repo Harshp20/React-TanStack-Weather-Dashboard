@@ -12,7 +12,7 @@ export default function Card({ children, title, className }: CardProps) {
 	return (
 		<section
 			className={cn(
-				"flex flex-col gap-3 rounded-dashboard border border-dashboard-border bg-dashboard-card-gradient p-card shadow-dashboard-md sm:gap-3 sm:p-card-md",
+				"flex flex-col gap-3 rounded-dashboard border border-dashboard-border/80 bg-dashboard-card-gradient p-card shadow-dashboard-md sm:gap-3 sm:p-card-md",
 				className,
 			)}
 		>

@@ -11,9 +11,9 @@ export default function WeatherIcon({
 }: WeatherIconProps) {
 	return (
 		<img
-			className={cn("size-8", iconClassNames)}
-			src={`https://openweathermap.org/payload/api/media/file/${icon}.png`}
-			alt="Daily Weather Condition"
+			className={cn("size-8 object-contain", iconClassNames)}
+			src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
+			alt=""
 		/>
 	);
 }
