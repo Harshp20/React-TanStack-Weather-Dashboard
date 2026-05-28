@@ -183,10 +183,12 @@ export default function PlaceSearch({
 									py: 1.5,
 									color: "var(--dashboard-fg)",
 									"&[aria-selected='true']": {
-										bgcolor: "color-mix(in srgb, var(--dashboard-fg) 8%, transparent)",
+										bgcolor:
+											"color-mix(in srgb, var(--dashboard-fg) 8%, transparent)",
 									},
 									"&.Mui-focused": {
-										bgcolor: "color-mix(in srgb, var(--dashboard-fg) 8%, transparent)",
+										bgcolor:
+											"color-mix(in srgb, var(--dashboard-fg) 8%, transparent)",
 									},
 								},
 							}}
@@ -253,8 +255,9 @@ export default function PlaceSearch({
 									borderColor: "var(--dashboard-accent)",
 								},
 							},
-							"& .MuiInputBase-input": {
+							"& .MuiInputBase-input.MuiAutocomplete-input": {
 								color: "var(--dashboard-fg)",
+								padding: "4px 4px 4px 5px",
 								"&::placeholder": {
 									color: "var(--dashboard-muted)",
 									opacity: 1,

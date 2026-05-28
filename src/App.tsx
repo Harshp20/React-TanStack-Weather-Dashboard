@@ -19,7 +19,7 @@ function App() {
 
 	return (
 		<main className="min-h-screen bg-dashboard-bg text-dashboard-fg">
-			<div className="mx-auto flex w-full max-w-7xl flex-col gap-section p-page sm:gap-section-lg sm:p-page-md lg:p-page-lg">
+			<div className="mx-auto flex w-full lg:max-w-[90ch] flex-col gap-section p-page sm:gap-section-lg sm:p-page-md lg:p-page-lg">
 				<header className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
 					{isResolvingLocation ? (
 						<SearchPlacesSkeleton />
