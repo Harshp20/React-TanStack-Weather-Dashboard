@@ -33,7 +33,7 @@ export default function MapWrapper({
 			)}
 		>
 			<MapContainer
-				className="h-full min-h-[280px] w-full overflow-hidden rounded-dashboard border border-dashboard-border sm:min-h-[400px] lg:min-h-[500px]"
+				className="h-full min-h-[280px] w-full overflow-hidden rounded-dashboard sm:min-h-[400px] lg:min-h-[500px]"
 				center={coords}
 				zoom={INITIAL_ZOOM}
 			>
