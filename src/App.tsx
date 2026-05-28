@@ -39,12 +39,17 @@ function App() {
 						<Suspense fallback={<HourlyForecastSkeleton />}>
 							<HourlyForecast coords={coords} />
 						</Suspense>
-						<Suspense fallback={<DailyForecastSkeleton />}>
-							<DailyForecast coords={coords} />
-						</Suspense>
-						<Suspense fallback={<AdditionalWeatherInfoSkeleton />}>
-							<AdditionalWeatherInfo coords={coords} />
-						</Suspense>
+						<div className="flex flex-col gap-5 lg:gap-8 lg:flex-row">
+							<Suspense fallback={<DailyForecastSkeleton />}>
+								<DailyForecast
+									coords={coords}
+									className="flex-1 lg:self-start"
+								/>
+							</Suspense>
+							<Suspense fallback={<AdditionalWeatherInfoSkeleton />}>
+								<AdditionalWeatherInfo coords={coords} className="flex-1" />
+							</Suspense>
+						</div>
 					</>
 				)}
 			</div>

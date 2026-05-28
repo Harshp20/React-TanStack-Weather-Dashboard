@@ -257,7 +257,7 @@ export default function PlaceSearch({
 							},
 							"& .MuiInputBase-input.MuiAutocomplete-input": {
 								color: "var(--dashboard-fg)",
-								padding: "4px 4px 4px 5px",
+								padding: "3.5px 5px 3.5px 5px",
 								"&::placeholder": {
 									color: "var(--dashboard-muted)",
 									opacity: 1,

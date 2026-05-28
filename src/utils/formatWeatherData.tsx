@@ -27,5 +27,29 @@ export function formatWeatherData(
 		return `${value}%`;
 	}
 
+	if (key === "humidity") {
+		return `${value}%`;
+	}
+
+	if (key === "pressure") {
+		return `${value} hPa`;
+	}
+
+	if (
+		key === "temp" ||
+		key === "feels_like" ||
+		key === "dew_point"
+	) {
+		return `${value}\u00b0`;
+	}
+
+	if (key === "wind_speed" || key === "wind_gust") {
+		return `${value} m/s`;
+	}
+
+	if (key === "visibility") {
+		return `${Math.round(value / 100) / 10} km`;
+	}
+
 	return value;
 }

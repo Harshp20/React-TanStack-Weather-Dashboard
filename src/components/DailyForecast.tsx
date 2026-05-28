@@ -4,12 +4,15 @@ import { formatDate } from "../utils/formatDate";
 import Card from "./Card";
 import WeatherIcon from "./WeatherIcon";
 
-export default function DailyForecast({ coords }: WeatherComponentProps) {
+export default function DailyForecast({
+	coords,
+	className,
+}: WeatherComponentProps) {
 	const { data } = useWeatherData(coords);
 
 	return (
-		<Card title="Daily Forecast">
-			<div className="flex flex-col gap-1 sm:gap-3">
+		<Card title="Daily Forecast" className={className}>
+			<div className="flex flex-col gap-1 sm:gap-2">
 				<div className="hidden border-b border-dashboard-border-subtle pb-2 text-dashboard-caption font-medium text-subtle sm:grid sm:grid-cols-5 sm:text-center">
 					<span className="text-left">Date</span>
 					<span>Condition</span>
@@ -20,7 +23,7 @@ export default function DailyForecast({ coords }: WeatherComponentProps) {
 				{data.daily.map((day) => (
 					<div
 						key={day.dt}
-						className="grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-2 border-b border-dashboard-border-subtle py-3 text-dashboard-body last:border-0 sm:grid-cols-5 sm:gap-0 sm:py-2 sm:text-center"
+						className="grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 border-b border-dashboard-border-subtle py-2 text-dashboard-body last:border-0 sm:grid-cols-5 sm:gap-0 sm:py-2 sm:text-center"
 					>
 						<p className="col-span-2 text-left font-medium sm:col-span-1">
 							{formatDate(day.dt)}
