@@ -2,6 +2,13 @@
 
 A responsive weather dashboard built with React and TypeScript. Search for a place or use your location, then explore current conditions, hourly and daily forecasts, and an interactive map with OpenWeather overlay layers.
 
+## Sneak Peek
+
+<p align="center">
+  <img src="screenshots/desktop.jpeg" width="49%" alt="Desktop view" />
+  <img src="screenshots/mobile.png" width="49%" alt="Mobile view" />
+</p>
+
 ## Features
 
 - **Location search** — Autocomplete powered by [OpenStreetMap Nominatim](https://nominatim.org/)
