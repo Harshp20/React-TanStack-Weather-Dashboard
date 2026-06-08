@@ -2,6 +2,8 @@
 
 A responsive weather dashboard built with React and TypeScript. Search for a place or use your location, then explore current conditions, hourly and daily forecasts, and an interactive map with OpenWeather overlay layers.
 
+**Live demo:** [hyperlocal-weather-dashboard.vercel.app](https://hyperlocal-weather-dashboard.vercel.app/)
+
 ## Sneak Peek
 
 <p align="center">
